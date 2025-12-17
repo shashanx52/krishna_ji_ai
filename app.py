@@ -38,7 +38,7 @@ st.divider()
 
 # ===================== GEMINI SETUP (KEPT) =====================
 
-genai.configure(api_key=os.getenv("AIzaSyAzg2YsmS24doBMQWZrUgZIFZoJBy5B8eU"))
+genai.configure(api_key=os.getenv("Gemini_API_Key"))
 
 @st.cache_resource
 def load_gemini():
