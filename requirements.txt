@@ -1,0 +1,12 @@
+streamlit
+openai-whisper
+sounddevice
+numpy
+scipy
+pyttsx3
+torch
+torchvision
+torchaudio
+ffmpeg-python
+#venv310\Scripts\activate
+
