@@ -1,182 +1,146 @@
-🕉️ Krishna Ji – Voice-first AI Spiritual Companion
+# 🕉️ Krishna Ji – Voice-first AI Spiritual Companion
 
-This project is a voice-first AI proof-of-concept where users can speak naturally and receive calm, contextual guidance inspired by the Bhagavad Gita.
-It was built as part of the PsyTech AI Engineer Intern case study.
+Krishna Ji is a **voice-first AI proof-of-concept** that allows users to speak naturally and receive calm, contextual guidance inspired by the **Bhagavad Gita**.
 
-The focus of this project is natural voice interaction, safety-aware AI design, and content understanding, rather than building a full production system.
+This project was built as part of the **PsyTech AI Engineer Intern case study** and focuses on **AI system design**, not just model usage.
 
-✨ What does this app do?
+---
 
-The user speaks their thoughts using a microphone
+## 🌱 Project Motivation
 
-The system converts speech to text
+The aim of this project is to explore how a **spiritual AI companion** can be designed responsibly using:
+- voice interaction
+- content understanding
+- safety moderation
+- intelligent tagging
+- graceful fallbacks when AI services fail
 
-The text is analyzed for:
+The emphasis is on **clarity, safety, and explainability**, not on building a production-ready system.
 
-sentiment (positive / neutral / negative)
+---
 
-harmful or offensive language
+## ✨ What Does the App Do?
 
-The content is automatically tagged into a life domain such as:
+1. User speaks using a microphone  
+2. Speech is converted to text  
+3. The text is analyzed for:
+   - sentiment (positive / neutral / negative)
+   - toxic or offensive language  
+4. The content is **classified into a devotional problem category**
+5. A Krishna-style response is generated
+6. The response is returned as **audio**
 
-Career
+All steps happen in real time.
 
-Love life
+---
 
-Family
+## 🧠 High-Level Architecture
 
-Health
-
-Mood / emotional state
-
-Based on this, the system generates a Krishna-style response
-
-The response is finally returned as audio
-
-The entire flow is designed to feel natural and conversational.
-
-🧠 Why this approach?
-
-Instead of training custom models (which requires data and time), I used:
-
-pre-trained NLP models
-
-zero-shot classification
-
-clear fallback logic
-
-This makes the system:
-
-fast to build
-
-easy to explain
-
-reliable for a demo
-
-realistic for an internship-level PoC
-
-🏗️ High-level Architecture
 Voice Input
-   ↓
+↓
 Whisper (Speech-to-Text)
-   ↓
-Language Translation (if required)
-   ↓
-Content Moderation
-   ↓
-Devotional Theme Classification
-   ↓
+↓
+Language Translation (if needed)
+↓
+Content Moderation (Sentiment + Toxicity)
+↓
+Devotional Tagging (Zero-shot NLP)
+↓
 Response Generation (Gemini / Fallback)
-   ↓
+↓
 Text-to-Speech
-   ↓
-Audio Reply
+↓
+Audio Output
 
-🛡️ Safety & Moderation
 
-Before generating any response, the system checks:
+---
 
-Sentiment using VADER
+## 🛡️ Safety & Moderation
 
-Toxicity / offensive language using a transformer-based classifier
+Before generating any response, the system performs moderation:
 
-If the input is offensive, the system avoids generating advice and instead responds with a calm de-escalation message.
+- **Sentiment Analysis** using VADER  
+- **Toxicity Detection** using a transformer-based classifier  
 
-This safety-first step was intentionally placed before response generation.
+If the input is offensive, the system avoids advice generation and responds with a calm de-escalation message.
 
-🏷️ Devotional Tagging
+This safety check is intentionally placed **before** response generation.
 
-User queries are automatically classified into problem categories using zero-shot classification (no training data required).
+---
 
-Supported categories:
+## 🏷️ Devotional Tagging / Classification
 
-Career
+User input is automatically classified into one of the following domains using **zero-shot classification**:
 
-Love Life
+- Career  
+- Love Life  
+- Family Issues  
+- Health Issues  
+- Mood / Mental State  
 
-Family Issues
+Each classification includes a **confidence score**, making the decision transparent and explainable.
 
-Health Issues
+No training data is required for this step.
 
-Mood / Mental State
+---
 
-Each prediction includes a confidence score, which can later be used for analytics or dashboards.
+## 🧘 Response Generation Logic
 
-🧘 Response Generation Logic
+- **Primary Path**:  
+  Gemini API is used to generate contextual, Krishna-style responses.
 
-Primary: Gemini API (context-aware, Krishna-style responses)
+- **Fallback Path**:  
+  If Gemini is unavailable or fails, the system uses **predefined but diverse responses** based on the detected theme.
 
-Fallback: Predefined but diverse responses based on the detected theme
+This hybrid approach ensures the app remains usable even when external APIs are unstable.
 
-This hybrid approach ensures the app continues to work even if the external API fails, which is important for real-world systems.
+---
 
-🔊 Voice Output
+## 🔊 Voice Output
 
-Responses are converted back into speech using text-to-speech so that the interaction remains voice-first, as required by the problem statement.
+Responses are converted back into speech using text-to-speech so that the experience remains **voice-first**, as required by the case study.
 
-🛠️ Tech Stack
+---
 
-Python 3.10
+## 🛠️ Tech Stack
 
-Streamlit (UI)
+- **Python 3.10**
+- **Streamlit** – Web UI
+- **Whisper** – Speech-to-Text
+- **Transformers** – Toxicity detection & zero-shot classification
+- **VADER** – Sentiment analysis
+- **Gemini API** – Contextual response generation
+- **gTTS** – Text-to-Speech
 
-Whisper (Speech-to-Text)
+---
 
-Transformers (Toxicity & Zero-shot classification)
 
-VADER (Sentiment analysis)
+---
 
-Gemini API (Response generation)
+## ⚙️ Installation & Setup
 
-gTTS (Text-to-Speech)
+### 1️⃣ Clone the Repository
 
-⚙️ How to run this project locally
-1. Clone the repository
+```bash
 git clone https://github.com/your-username/krishna-voice-ai.git
 cd krishna-voice-ai
 
-2. Create a virtual environment
+2️⃣ Create Virtual Environment
 python -m venv venv
 venv\Scripts\activate
 
-3. Install dependencies
+3️⃣ Install Dependencies
 pip install -r requirements.txt
 
-4. Set Gemini API key
-
-On Windows:
-
+4️⃣ Set Gemini API Key
+On Windows (Command Prompt):
 setx GEMINI_API_KEY "YOUR_API_KEY_HERE"
-
-
 Restart the terminal after setting the key.
 
-5. Run the application
+Note: The code is written to safely handle Gemini failures using fallback logic.
+
+5️⃣ Run the Application
 streamlit run app.py
-
-⚠️ Notes & Limitations
-
-This is a PoC, not a production system
-
-Gemini API may occasionally fail; fallback logic is implemented
-
-First run may take time due to model downloads
-
-Requires a working microphone
-
-🎯 What this project demonstrates
-
-Voice-first AI system design
-
-NLP pipeline thinking
-
-Safety-aware response handling
-
-Practical use of pre-trained models
-
-Clean fallback strategies
-
-Ability to balance ambition with stability
 
 👤 Author
 
@@ -184,4 +148,3 @@ Shashank Jha
 B.Tech (ECE), GGSIPU
 AI / NLP / Data Enthusiast
 
-Built as part of an internship evaluation assignment.
