@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🕉️ Krishna Ji – Divine Voice</title>
+
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async></script>
+
+<style>
+:root {
+  --gold: #ffcc33;
+  --dark: #0b132b;
+}
+
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: radial-gradient(circle at center, #1e3c72, #000);
+  color: white;
+  overflow-x: hidden;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 14px;
+  z-index: 1000;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+section {
+  min-height: 100vh;
+  padding: 120px 20px 60px;
+  display: none;
+}
+
+section.active {
+  display: block;
+}
+
+/* HEADER */
+h1 {
+  font-size: 3rem;
+  text-align: center;
+  background: linear-gradient(to bottom, #fff59d, #ffb300);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 4px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* HOME */
+.halo {
+  width: 160px;
+  height: 160px;
+  background: rgba(255,204,51,0.2);
+  border-radius: 50%;
+  animation: breathe 3s infinite ease-in-out;
+  position: absolute;
+}
+
+@keyframes breathe {
+  0%,100% { transform: scale(1); opacity: 0.3 }
+  50% { transform: scale(1.4); opacity: 0.6 }
+}
+
+/* QUOTES */
+.quote-box {
+  max-width: 700px;
+  margin: auto;
+  font-size: 22px;
+  text-align: center;
+  line-height: 1.6;
+  border-left: 4px solid var(--gold);
+  padding-left: 20px;
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 24px;
+  border-radius: 16px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.7;
+  padding: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <button onclick="showSection('home')">Home</button>
+  <button onclick="showSection('quotes')">Gita Quotes</button>
+  <button onclick="showSection('how')">How It Works</button>
+  <button onclick="showSection('about')">About</button>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="active center">
+  <span style="font-size:50px;">🪶</span>
+  <h1>Krishna Ji</h1>
+  <p>अपने मन की बात कहिए — शांति और मार्गदर्शन पाइए</p>
+
+  <div style="position:relative;margin-top:40px;">
+    <div class="halo"></div>
+    <elevenlabs-convai
+      agent-id="agent_4601kddrhpq8e40tvk1y948f75d2"
+      style="z-index:2;">
+    </elevenlabs-convai>
+  </div>
+</section>
+
+<!-- QUOTES -->
+<section id="quotes">
+  <h1>Bhagavad Gita Wisdom</h1>
+  <div class="quote-box" id="quoteBox">
+    “You have the right to perform your duty, but not to the fruits of action.”
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <h1>How This Works</h1>
+  <div class="cards">
+    <div class="card">
+      🎙️ <b>Voice Input</b>
+      <p>User speaks naturally using browser microphone.</p>
+    </div>
+    <div class="card">
+      🧠 <b>Understanding</b>
+      <p>AI analyzes intent, emotion, and tone.</p>
+    </div>
+    <div class="card">
+      🕉️ <b>Krishna Persona</b>
+      <p>Responses follow Bhagavad Gita philosophy.</p>
+    </div>
+    <div class="card">
+      🔊 <b>Voice Reply</b>
+      <p>ElevenLabs generates human-like spiritual voice.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h1>About This Project</h1>
+  <div class="quote-box">
+    This is a Proof of Concept built for the PsyTech AI Engineer Internship.
+    <br><br>
+    Focus areas:
+    <ul>
+      <li>Voice-first AI interaction</li>
+      <li>Emotional intelligence & safety</li>
+      <li>Spiritual guidance using AI</li>
+      <li>Low-latency conversational experience</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Built by Shashank • Voice AI • NLP • ElevenLabs • 2025
+</footer>
+
+<script>
+/* PAGE NAVIGATION */
+function showSection(id) {
+  document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+/* ROTATING QUOTES */
+const quotes = [
+  "Change is the law of the universe.",
+  "A person is made by their beliefs.",
+  "Calmness is the greatest strength.",
+  "Detached action brings peace."
+];
+let qi = 0;
+setInterval(() => {
+  qi = (qi + 1) % quotes.length;
+  document.getElementById("quoteBox").innerText = quotes[qi];
+}, 4000);
+
+/* WIDGET TEXT OVERRIDE */
+window.addEventListener("load", () => {
+  const widget = document.querySelector("elevenlabs-convai");
+  widget.setAttribute("config", JSON.stringify({
+    text: {
+      title: "Seek Wisdom?",
+      start_call: "Speak to Krishna",
+      listening: "I am listening...",
+      speaking: "Krishna is replying..."
+    }
+  }));
+});
+</script>
+
+</body>
+</html>
